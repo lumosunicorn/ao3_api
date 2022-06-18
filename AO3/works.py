@@ -214,7 +214,6 @@ class Work:
             "id",
             "words",
             "collections",
-            "bookmarked_date",
             "bookmark_tags",
             "bookmark_note",
         )
@@ -222,6 +221,7 @@ class Work:
             "date_edited",
             "date_published",
             "date_updated",
+            "bookmarked_date",
         )
         
         for field in string_fields:
