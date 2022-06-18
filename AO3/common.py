@@ -146,7 +146,7 @@ def get_work_from_banner(work):
     bookmarked_date = None
     bookmark_tags = None
     bookmark_note = None
-    bookmark_module = work.find(attrs={"class": "user module group"})
+    bookmark_module = work.find(attrs={"class": lambda e: ('user' in e and 'module' in e and 'group' in e)})
     if bookmark_module is not None:
         bookmarked_date = bookmark_module.find("p", {"class": "datetime"})
         if bookmarked_date is not None:
