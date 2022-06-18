@@ -108,6 +108,8 @@ class Search:
                 continue
             
             new = get_work_from_banner(work)
+            if new is None:
+                continue
             new._session = self.session
             works.append(new)
 

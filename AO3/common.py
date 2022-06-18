@@ -15,6 +15,7 @@ def get_work_from_banner(work):
     from .works import Work
     
     authors = []
+    workid = None
     try:
         for a in work.h4.find_all("a"):
             if 'rel' in a.attrs.keys():
@@ -25,7 +26,9 @@ def get_work_from_banner(work):
                 workid = utils.workid_from_url(a['href'])
     except AttributeError:
         pass
-            
+    if workid is None:
+        return None
+
     new = Work(workid, load=False)
 
     fandoms = []

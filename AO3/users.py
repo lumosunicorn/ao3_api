@@ -265,7 +265,10 @@ class User:
         for work in ol.find_all("li", {"role": "article"}):
             if work.h4 is None:
                 continue
-            self._works.append(get_work_from_banner(work))
+            new = get_work_from_banner(work)
+            if new is None:
+                continue
+            self._works.append(new)
 
     @cached_property
     def bookmarks(self):
@@ -333,7 +336,10 @@ class User:
             authors = []
             if work.h4 is None:
                 continue
-            self._bookmarks.append(get_work_from_banner(work))
+            new = get_work_from_banner(work)
+            if new is None:
+                continue
+            self._bookmarks.append(new)
     
     @cached_property
     def bio(self):

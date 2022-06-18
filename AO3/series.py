@@ -342,7 +342,10 @@ class Series:
         for work in ul.find_all("li", {"role": "article"}):
             if work.h4 is None:
                 continue
-            works.append(get_work_from_banner(work))
+            new = get_work_from_banner(work)
+            if new is None:
+                continue
+            works.append(new)
         #     authors = []
         #     if work.h4 is None:
         #         continue
