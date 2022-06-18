@@ -128,6 +128,25 @@ def get_work_from_banner(work):
     else:
         language = words = bookmarks = chapters = expected_chapters = hits = restricted = complete = None
 
+    bookmarked_date = None
+    bookmark_tags = None
+    bookmark_note = None
+    bookmark_module = work.find(attrs={"class": "own user module group"})
+    if bookmark_module is not None:
+        bookmarked_date = bookmark_module.find("p", {"class": "datetime"})
+        if bookmarked_date is not None:
+            bookmarked_date = datetime.datetime.strptime(bookmarked_date.getText(), "%d %b %Y")
+        bookmark_tags = []
+        for a in bookmark_module.find(attrs={"class": "tags"}).find_all("li"):
+            if "tag" in a['class']:
+                bookmark_tags.append(a.text)
+        bookmark_note = bookmark_module.find("blockquote", {"class": "userstuff notes"})
+        if bookmark_note is not None:
+            bookmark_note = bookmark_note.find("p")
+            if bookmark_note is not None:
+                bookmark_note = bookmark_note.getText()
+
+        print("Bookmark stuff found", bookmarked_date, bookmark_tags, bookmark_note)
     date = work.find("p", {"class": "datetime"})
     if date is None:
         date_updated = None
@@ -156,7 +175,10 @@ def get_work_from_banner(work):
     __setifnotnone(new, "title", workname)
     __setifnotnone(new, "warnings", warnings)
     __setifnotnone(new, "words", words)
-    
+    __setifnotnone(new, "bookmarked_date", bookmarked_date)
+    __setifnotnone(new, "bookmark_tags", bookmark_tags)
+    __setifnotnone(new, "bookmark_note", bookmark_note)
+
     return new
 
 def url_join(base, *args):

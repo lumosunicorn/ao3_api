@@ -213,7 +213,10 @@ class Work:
             "warnings",
             "id",
             "words",
-            "collections"
+            "collections",
+            "bookmarked_date",
+            "bookmark_tags",
+            "bookmark_note",
         )
         string_fields = (
             "date_edited",
