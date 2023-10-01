@@ -18,6 +18,7 @@ class Requester:
         
         self._requests = []
         self._rqtw = rqtw
+        self._debug_logging = False
         self._timew = timew
         self._lock = threading.Lock()
         self.total = 0
@@ -28,6 +29,9 @@ class Requester:
     def setTimeW(self, value):
         self._timew = value
 
+    def set_debug_logging(self, value: bool):
+        self._debug_logging = value
+
     def request(self, *args, **kwargs):
         """Requests a web page once enough time has passed since the last request
         
@@ -37,7 +41,10 @@ class Requester:
         Returns:
             requests.Response: Response object
         """
-        
+
+        if self._debug_logging:
+            print(F"HTTP Request: {args} {kwargs}")
+
         # We've made a bunch of requests, time to rate limit?
         if self._rqtw != -1:
             with self._lock:

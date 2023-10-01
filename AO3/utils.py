@@ -132,7 +132,11 @@ def limit_requests(limit=True):
         requester.setRQTW(12)
     else:
         requester.setRQTW(-1)
-    
+
+def set_request_logging(enabled=True):
+    """Set debug logging"""
+    requester.set_debug_logging(enabled)
+
 def load_fandoms():
     """Loads fandoms into memory
 
